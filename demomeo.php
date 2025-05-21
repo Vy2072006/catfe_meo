@@ -1,14 +1,14 @@
 <?php
-include 'config.php';
-include 'header.php';
+include 'layout/header.php'
 ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cafe Mèo</title>
+  <title>Thông tin các bé mèo</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     .cat-card {
@@ -16,12 +16,27 @@ include 'header.php';
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
+      width: 100%;
+      max-width: 350px;
+      transition: transform 0.3s;
+    }
+
+    .cat-card:hover {
+      transform: scale(1.05);
+    }
+
+    .cat-img-wrapper {
+      height: 200px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .cat-img {
-      object-fit: cover;
-      height: 100%;
       width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .cat-info {
@@ -32,151 +47,79 @@ include 'header.php';
     .cat-desc {
       font-size: 14px;
       color: #555;
-    }
-
-    .cat-card:hover {
-      transform: scale(1.05);
-      transition: 0.3s;
-    }
-
-    /* Điều chỉnh giãn cách các nút phân trang */
-    .pagination .page-item .page-link {
-      border-radius: 50%;
-      padding: 12px 18px;
-      font-size: 16px;
-      margin: 0 5px;
-      /* Giãn cách các nút */
-      color: #007bff;
-    }
-
-    .pagination .page-item .page-link:hover {
-      background-color: #007bff;
-      color: white;
-    }
-
-    .pagination .page-item.disabled .page-link {
-      color: #ddd;
-    }
-
-    .pagination .page-item.active .page-link {
-      background-color: #28a745;
-      border-color: #28a745;
-      color: white;
-    }
-
-    .pagination .page-item .page-link {
-      border: 1px solid #ccc;
-    }
-
-    /* Canh giữa ảnh mèo */
-    .cat-img-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 200px;
-    }
-
-    .cat-card-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Thu nhỏ card mèo */
-    .cat-card {
-      width: 100%;
-      max-width: 350px;
-    }
-
-    /* Canh giữa toàn bộ container */
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+      padding: 0 15px 15px;
     }
   </style>
 </head>
 
 <body>
-  <div class="container my-4">
+  <header class="bg-light text-center py-3">
+    <h1>Trang thông tin các bé mèo</h1>
+  </header>
+  <div class="container my-5">
+    <h2 class="text-center mb-4">Thông tin các bé mèo</h2>
     <div class="row g-4 justify-content-center">
+
       <?php
-      // Xác định số lượng mèo mỗi trang
-      $limit = 8;
+      $cats = [
+        [
+          "name" => "Bé Gà",
+          "gender" => "Đực",
+          "birth" => "2018",
+          "breed" => "Scottish",
+          "image" => "image/meo1.jpg",
+          "desc" => "Thức ăn yêu thích: đồ sấy, hạt Canin.<br>Hoạt động: ngủ nhiều vào ban ngày, thích phơi nắng ở cửa sổ, tầm trưa sẽ đi ăn thật no và lại chìm vào giấc ngủ.<br>Tính cách: Trưởng thành, điềm đạm.<br>Đặc điểm nhận dạng: Thích bới đồ ăn ra khỏi bát rồi mới ăn."
+        ],
+        [
+          "name" => "Bé Sam",
+          "gender" => "Cái",
+          "birth" => "2022",
+          "breed" => "Munchkin",
+          "image" => "image/meo2.jpg",
+          "desc" => "Thức ăn yêu thích: Ciao.<br>Hoạt động: Ngủ ngày, chiều dậy đi tìm người để nựng.<br>Tính cách: Cô nàng hướng nội.<br>Đặc điểm nhận dạng: Hay ngủ gục đầu vào chân bàn hay chân ghế."
+        ],
+        [
+          "name" => "Bé Đậu Phộng",
+          "gender" => "Đực",
+          "birth" => "2020",
+          "breed" => "Munchkin",
+          "image" => "image/meo3.jpg",
+          "desc" => "Thức ăn yêu thích: đồ sấy.<br>Hoạt động: Ngủ ngày, trưa sẽ đi dạo tìm đối tượng để chọc ghẹo.<br>Tính cách: Ngỗ nghịch.<br>Đặc điểm nhận dạng: thích đứng bằng 2 chân."
+        ],
+        [
+          "name" => "Bé Matcha",
+          "gender" => "Đực",
+          "birth" => "2019",
+          "breed" => "Scottish",
+          "image" => "image/meo4.jpg",
+          "desc" => "Thức ăn: Thịt than heo, Ciao, Pate tùy loại.<br>Hoạt động: Ngủ nguyên ngày, có thể không buồn ăn uống, phải gọi dậy để cho ăn, thích được đút ăn.<br>Tính cách: Nhẹ nhàng, tình cảm.<br>Đặc điểm: Ngủ mọi lúc mọi nơi."
+        ]
+      ];
 
-      // Xác định trang hiện tại
-      $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-      if ($page < 1) $page = 1;
-      $offset = ($page - 1) * $limit;
-
-      // Truy vấn để lấy mèo theo phân trang
-      $stmt = $conn->prepare("SELECT * FROM cats LIMIT ? OFFSET ?");
-      $stmt->bind_param("ii", $limit, $offset);
-      $stmt->execute();
-      $result = $stmt->get_result();
-
-      while ($cat = $result->fetch_assoc()):
+      foreach ($cats as $cat) {
+        echo '<div class="col-md-6 col-lg-4 d-flex justify-content-center">';
+        echo '  <div class="card cat-card">';
+        echo '    <div class="cat-img-wrapper">';
+        echo '      <img src="' . $cat["image"] . '" alt="' . $cat["name"] . '" class="cat-img">';
+        echo '    </div>';
+        echo '    <div class="cat-info">';
+        echo '      <h5 class="card-title mb-1">' . $cat["name"] . ' <small class="text-muted">– ' . $cat["gender"] . '</small></h5>';
+        echo '      <p class="mb-1"><strong>Ngày sinh:</strong> ' . $cat["birth"] . '</p>';
+        echo '      <p class="mb-1"><strong>Giống:</strong> ' . $cat["breed"] . '</p>';
+        echo '    </div>';
+        echo '    <div class="cat-desc">' . $cat["desc"] . '</div>';
+        echo '  </div>';
+        echo '</div>';
+      }
       ?>
-        <div class="col-md-6 col-lg-4 cat-card-wrapper">
-          <div class="card cat-card">
-            <div class="row g-0">
-              <div class="col-md-5 cat-img-wrapper">
-                <img src="<?= htmlspecialchars($cat['image']) ?>" alt="Ảnh mèo" class="cat-img">
-              </div>
-              <div class="col-md-7 p-3 cat-info">
-                <h5 class="card-title mb-1">
-                  <?= htmlspecialchars($cat['name']) ?>
-                  <small class="text-muted">– <?= htmlspecialchars($cat['gender']) ?></small>
-                </h5>
-                <p class="mb-1"><strong>Ngày sinh:</strong> <?= date('d.m.Y', strtotime($cat['birthday'])) ?></p>
-                <p class="mb-1"><strong>Giống:</strong> <?= htmlspecialchars($cat['breed']) ?></p>
-              </div>
-            </div>
-            <div class="p-3 pt-2">
-              <p class="cat-desc mb-0">
-                <?= nl2br(htmlspecialchars($cat['description'])) ?>
-              </p>
-            </div>
-          </div>
-        </div>
-      <?php endwhile; ?>
 
     </div>
-
-    <?php
-    // Tính tổng số mèo
-    $stmt = $conn->query("SELECT COUNT(*) AS total FROM cats");
-    $totalCats = $stmt->fetch_assoc()['total'];
-    $totalPages = ceil($totalCats / $limit);
-    ?>
-
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center mt-4">
-        <li class="page-item <?= ($page == 1) ? 'disabled' : '' ?>">
-          <a class="page-link" href="?page=<?= $page - 1 ?>" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-          <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-          </li>
-        <?php endfor; ?>
-        <li class="page-item <?= ($page == $totalPages) ? 'disabled' : '' ?>">
-          <a class="page-link" href="?page=<?= $page + 1 ?>" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
   </div>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
 
 <?php
-include 'footer.php'
+include 'layout/footer.php'
 ?>

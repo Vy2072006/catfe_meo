@@ -1,90 +1,107 @@
 <?php
-include "header.php";
+include "layout/header.php";
 ?>
-
 <?php
-// Kết nối cơ sở dữ liệu
-include 'config.php';
+// Xử lý khi form được gửi
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = htmlspecialchars($_POST["name"]);
+    $comment = htmlspecialchars($_POST["comment"]);
+    $rating = intval($_POST["rating"]);
 
-// Xử lý gửi bình luận
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = htmlspecialchars(trim($_POST['name']));
-    $comment = htmlspecialchars(trim($_POST['comment']));
-
-    if (!empty($name) && !empty($comment)) {
-        $stmt = $conn->prepare("INSERT INTO comments (name, comment, created_at) VALUES (?, ?, NOW())");
-        $stmt->bind_param("ss", $name, $comment);
-        $stmt->execute();
-        $stmt->close();
-    }
-    header("Location: comments.php");
-    exit;
+    // Lưu vào file đơn giản (nên dùng database trong ứng dụng thực tế)
+    $data = "$name|$rating|$comment\n";
+    file_put_contents("comments_data.txt", $data, FILE_APPEND);
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bình luận</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Đánh giá & Bình luận</title>
     <style>
         body {
-            font-family: Arial;
-            margin: 40px;
+            font-family: Arial, sans-serif;
+            padding: 20px;
         }
 
         .comment-box {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 15px;
+            margin-top: 20px;
         }
 
-        .comment-form {
-            margin-top: 30px;
+        .star-rating {
+            direction: rtl;
+            display: inline-flex;
         }
 
-        textarea,
-        input[type=text] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
+        .star-rating input {
+            display: none;
         }
 
-        input[type=submit] {
-            padding: 10px 20px;
+        .star-rating label {
+            font-size: 25px;
+            color: #ccc;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .star-rating input:checked~label,
+        .star-rating label:hover,
+        .star-rating label:hover~label {
+            color: gold;
+        }
+
+        .comment {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
         }
     </style>
 </head>
 
 <body>
-    <h2>đánh giá</h2>
 
-    <?php
-    // Lấy bình luận từ DB
-    $result = $conn->query("SELECT * FROM comments ORDER BY created_at DESC");
+    <h2>Gửi đánh giá của bạn</h2>
 
-    while ($row = $result->fetch_assoc()) {
-        echo "<div class='comment-box'>";
-        echo "<strong>" . htmlspecialchars($row['name']) . "</strong> - <small>" . $row['created_at'] . "</small><br>";
-        echo nl2br(htmlspecialchars($row['comment']));
-        echo "</div>";
-    }
-    ?>
+    <form method="POST" action="">
+        <label>Tên:</label><br>
+        <input type="text" name="name" required><br><br>
 
-    <div class="comment-form">
-        <h3>Gửi bình luận</h3>
-        <form method="post" action="comments.php">
-            <input type="text" name="name" placeholder="Tên của bạn" required>
-            <textarea name="comment" rows="5" placeholder="Viết bình luận..." required></textarea>
-            <input type="submit" value="Gửi bình luận">
-        </form>
+        <label>Đánh giá sao:</label><br>
+        <div class="star-rating">
+            <?php for ($i = 5; $i >= 1; $i--): ?>
+                <input type="radio" id="star<?= $i ?>" name="rating" value="<?= $i ?>" required>
+                <label for="star<?= $i ?>">★</label>
+            <?php endfor; ?>
+        </div><br><br>
+
+        <label>Bình luận:</label><br>
+        <textarea name="comment" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Gửi</button>
+    </form>
+
+    <h3>Bình luận đã gửi:</h3>
+
+    <div class="comment-box">
+        <?php
+        if (file_exists("comments_data.txt")) {
+            $lines = file("comments_data.txt");
+            foreach ($lines as $line) {
+                list($name, $rating, $comment) = explode("|", trim($line));
+                echo "<div class='comment'>";
+                echo "<strong>$name</strong><br>";
+                echo str_repeat("★", $rating) . str_repeat("☆", 5 - $rating) . "<br>";
+                echo nl2br(htmlspecialchars($comment));
+                echo "</div>";
+            }
+        }
+        ?>
     </div>
+
 </body>
 
 </html>
 <?php
-include "footer.php";
+include "layout/footer.php";
 ?>

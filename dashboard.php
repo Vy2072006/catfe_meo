@@ -48,10 +48,10 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <h4 class="text-white text-center">Dashboard</h4>
-    <a href="#"><i class="bi bi-house-door"></i> Home</a>
-    <a href="#"><i class="bi bi-people"></i> Users</a>
+    <a href="index.php"><i class="bi bi-house-door"></i> Home</a>
+    <a href="admin.php"><i class="bi bi-people"></i> Users</a>
     <a href="#"><i class="bi bi-cart"></i> Orders</a>
-    <a href="#"><i class="bi bi-bar-chart"></i> Reports</a>
+    <a href="Assets"><i class="bi bi-bar-chart"></i> Reports</a>
     <a href="login.php" class="text-danger"><i class="bi bi-box-arrow-right"></i> Logout</a>
   </div>
 

@@ -1,5 +1,5 @@
 <?php
-include "header.php";
+include "layout/header.php";
 ?>
 
 <!DOCTYPE html>
@@ -47,17 +47,13 @@ include "header.php";
           <div class="card-body">
             <h5 class="card-title"><i class="bi bi-cup-straw"></i>Nước uống</h5>
             <ul class="list-unstyled">
-              <li>Matcha đá xay - 38.000đ</li>
-              <li>Matcha latte - 35.000đ</li>
-              <li>Sinh tố xoài - 35.000đ</li>
-              <li>Sữa tươi trân châu - 32.000đ</li>
-              <li>Hồng trà sữa - 30.000đ</li>
-              <li>Trà sữa - 30.000đ</li>
-              <li>Cafe sữa đá - 28.000đ</li>
-              <li>Trà chanh đào - 25.000đ</li>
-              <li>Nước cam - 22.000đ</li>
-              <li>Trà tắc - 20.000đ</li>
-              <li>Nước suối - 10.000đ</li>
+              <li>Nước lọc</li>
+              <li>Trà đào</li>
+              <li>Nước chanh</li>
+              <li>Hồng trà</li>
+              <li>Trà tắc</li>
+              <li>Trà sữa</li>
+              <li>Các loại nước ngọt</li>
             </ul>
           </div>
         </div>
@@ -69,16 +65,12 @@ include "header.php";
           <div class="card-body">
             <h5 class="card-title"><i class="bi bi-basket"></i>Đồ ăn chính</h5>
             <ul class="list-unstyled">
-              <li>bánh cheesecake - 35.000đ</li>
-              <li>bánh bông lan - 30.000đ</li>
-              <li>Bánh muffin việt quất - 25.000đ</li>
-              <li>Bánh muffin socola - 25.000đ</li>
-              <li>Tiramisu socola - 25.000đ</li>
-              <li>Tiramisu trà xanh matcha - 25.000đ</li>
-              <li>Tiramisu chanh dây - 25.000đ</li>
-              <li>bánh quy sô-cô-la - 20.000đ</li>
-              <li>bánh quy matcha - 20.000đ</li>
-              <li></li>
+              <li>bánh tráng </li>
+              <li>chuối sấy</li>
+              <li>xoài sấy</li>
+              <li>bánh cá</li>
+              <li>đậu phộng</li>
+              <li>bánh snack</li>
             </ul>
           </div>
         </div>
@@ -116,5 +108,5 @@ include "header.php";
 </html>
 
 <?php
-include 'footer.php'
+include 'layout/footer.php'
 ?>
